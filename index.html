@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Text Transformer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">AI Text Transformer</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#transform">Трансформация</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#detect">Проверка</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">О проекте</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h2 id="transform">Трансформация AI-текста</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Загрузите AI-генерированный текст, и мы преобразуем его так, чтобы он не был похож на текст, созданный искусственным интеллектом.</p>
+                        
+                        <div class="alert alert-info mb-3">
+                            <h5>Новые функции трансформации:</h5>
+                            <ul>
+                                <li><strong>Эмоциональные маркеры</strong> - добавление эмоциональных выражений и восклицаний</li>
+                                <li><strong>Нарушение паттернов</strong> - создание менее предсказуемой структуры</li>
+                                <li><strong>Личное мнение</strong> - добавление субъективных оценок и мнений</li>
+                                <li><strong>Маркеры хезитации</strong> - добавление слов-паразитов, многоточий и повторов</li>
+                            </ul>
+                        </div>
+                        
+                        <form id="transformForm" class="mb-3">
+                            <div class="mb-3">
+                                <label for="aiText" class="form-label">Текст от AI:</label>
+                                <textarea class="form-control" id="aiText" rows="8" placeholder="Вставьте текст, созданный AI..."></textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="transformStrength" class="form-label">Сила преобразования: <span id="strengthValue">0.5</span></label>
+                                <input type="range" class="form-range" id="transformStrength" min="0.1" max="1.0" step="0.1" value="0.5">
+                                <small class="text-muted">0.1 - минимальные изменения, 1.0 - максимальные изменения</small>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Трансформировать</button>
+                        </form>
+                        
+                        <div id="transformResult" class="d-none">
+                            <h4>Результат трансформации:</h4>
+                            <div class="alert alert-info mb-3">
+                                <div id="transformedText"></div>
+                            </div>
+                            <button id="copyTransformed" class="btn btn-outline-primary">Копировать</button>
+                            <button id="detectTransformed" class="btn btn-outline-secondary">Проверить результат</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h2 id="detect">Проверка на AI-генерацию</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Загрузите текст, чтобы проверить, был ли он создан искусственным интеллектом.</p>
+                        
+                        <div class="alert alert-info mb-3">
+                            <h5>Улучшенные алгоритмы анализа:</h5>
+                            <ul>
+                                <li><strong>Шаблонные фразы</strong> - обнаружение клишированных выражений</li>
+                                <li><strong>Повторяемость</strong> - анализ повторения слов и идей</li>
+                                <li><strong>Необычные перефразировки</strong> - поиск нетипичных словосочетаний</li>
+                                <li><strong>Эмоциональное разнообразие</strong> - оценка эмоциональной окраски текста</li>
+                                <li><strong>Предсказуемость</strong> - анализ естественности текста через n-граммы</li>
+                                <li><strong>Перплексия текста</strong> - анализ предсказуемости на основе языковой модели <span class="new-feature-badge">НОВОЕ</span></li>
+                                <li><strong>Бурстичность</strong> - оценка неравномерности распределения контента <span class="new-feature-badge">НОВОЕ</span></li>
+                                <li><strong>Цепочный анализ</strong> - объединение нескольких детекторов для повышения точности <span class="new-feature-badge">НОВОЕ</span></li>
+                            </ul>
+                        </div>
+                        
+                        <form id="detectForm" class="mb-3">
+                            <div class="mb-3">
+                                <label for="checkText" class="form-label">Текст для проверки:</label>
+                                <textarea class="form-control" id="checkText" rows="8" placeholder="Вставьте текст для проверки..."></textarea>
+                            </div>
+                            
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="useChainDetection" checked>
+                                <label class="form-check-label" for="useChainDetection">Использовать расширенный цепочный анализ <span class="new-feature-badge">НОВОЕ</span></label>
+                                <small class="form-text text-muted d-block">Включает дополнительный анализ взаимосвязи признаков для повышения точности</small>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Проверить</button>
+                        </form>
+                        
+                        <div id="detectResult" class="results-container">
+                            <h4>Результат проверки:</h4>
+                            <div class="alert mb-3 alert-info" id="resultAlert">
+                                <div id="aiProbability">Пример результата проверки: Вероятность того, что текст создан AI: 65.0%. Возможно, текст содержит признаки искусственной генерации.</div>
+                            </div>
+                            
+                            <div class="confidence-meter mb-3">
+                                <div class="confidence-level" id="confidenceLevel" style="width: 65%"></div>
+                            </div>
+                            <p class="text-center mb-4"><small class="text-muted">0% - человеческий текст, 100% - AI-текст</small></p>
+                            
+                            <div id="chainAnalysisResult" class="card mb-3">
+                                <div class="card-header">Результаты цепочного анализа</div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p><strong>Базовая вероятность:</strong> <span id="originalConfidence">60.0</span>%</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <p><strong>После цепочного анализа:</strong> <span id="chainAdjustedConfidence">65.0</span>%</p>
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-info mt-2">
+                                        <small>Цепочный анализатор применяет дополнительные правила для уточнения оценки, основываясь на взаимосвязи признаков. Это позволяет более точно определить AI-генерацию.</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h5>Подробный анализ:</h5>
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div id="detailsContainer">
+                                        <!-- Пример детализации -->
+                                        <div class="feature-row">
+                                            <div class="feature-name">Формальность текста</div>
+                                            <div class="feature-value">
+                                                <div class="mini-meter">
+                                                    <div class="mini-bar medium" style="width: 70%"></div>
+                                                </div>
+                                                <span>70.0%</span>
+                                            </div>
+                                        </div>
+                                        <div class="feature-row">
+                                            <div class="feature-name">Перплексия (предсказуемость)<span class="new-feature-badge small">НОВОЕ</span></div>
+                                            <div class="feature-value">
+                                                <div class="mini-meter">
+                                                    <div class="mini-bar high" style="width: 85%"></div>
+                                                </div>
+                                                <span>85.0%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h2 id="about">О проекте</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>Этот проект создан для решения двух задач:</p>
+                        <ol>
+                            <li><strong>Трансформация AI-текста</strong> - изменение AI-сгенерированного текста таким образом, чтобы он был менее распознаваем как созданный ИИ.</li>
+                            <li><strong>Определение AI-генерации</strong> - анализ текста для выявления признаков генерации искусственным интеллектом.</li>
+                        </ol>
+                        
+                        <h5>Как работает трансформация?</h5>
+                        <p>Мы используем несколько алгоритмов для "очеловечивания" AI-текста:</p>
+                        <ul>
+                            <li>Изменение структуры предложений</li>
+                            <li>Добавление неформальных выражений</li>
+                            <li>Замена формальных фраз на разговорные</li>
+                            <li>Введение редких опечаток (как у людей)</li>
+                            <li>Варьирование длины предложений</li>
+                            <li>Замена слов синонимами</li>
+                            <li>Добавление русских идиом</li>
+                            <li>Включение эмоциональных маркеров</li>
+                            <li>Нарушение типичных AI-паттернов</li>
+                            <li>Добавление субъективных оценок</li>
+                            <li>Вставка маркеров неуверенности</li>
+                        </ul>
+                        
+                        <h5>Как работает определение?</h5>
+                        <p>Мы анализируем более 15 характеристик текста, включая:</p>
+                        <ul>
+                            <li>Формальность языка</li>
+                            <li>Разнообразие предложений</li>
+                            <li>Лексическое разнообразие</li>
+                            <li>Наличие шаблонных фраз</li>
+                            <li>Эмоциональное разнообразие</li>
+                            <li>Предсказуемость n-грамм</li>
+                            <li>Перплексия и бурстичность</li>
+                            <li>И многое другое</li>
+                        </ul>
+                        
+                        <h5>Что такое цепочный анализ?</h5>
+                        <p>Цепочный анализ – это усовершенствованный метод, который позволяет улучшить точность обнаружения AI-текста путём:</p>
+                        <ul>
+                            <li>Анализа взаимосвязи между различными характеристиками текста</li>
+                            <li>Применения дополнительных правил для уточнения оценки</li>
+                            <li>Обнаружения сложных шаблонов, которые вместе сильнее указывают на AI-происхождение</li>
+                            <li>Использования перплексии и бурстичности для более точного анализа</li>
+                            <li>Учета контекста и комбинаторики признаков</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="bg-light text-center text-muted py-3 mt-5">
+        <div class="container">
+            <p>AI Text Transformer © 2023</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    
+    <!-- Скрипт для отладки проблемы с отображением результатов -->
+    <script>
+        // Проверка наличия элементов на странице
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Элементы проверки:');
+            console.log('detectForm:', document.getElementById('detectForm'));
+            console.log('detectResult:', document.getElementById('detectResult'));
+            console.log('confidenceLevel:', document.getElementById('confidenceLevel'));
+            console.log('useChainDetection:', document.getElementById('useChainDetection'));
+            
+            // Ручное тестирование отображения результатов
+            window.showResults = function() {
+                const detectResult = document.getElementById('detectResult');
+                if (detectResult) {
+                    detectResult.classList.remove('d-none');
+                    console.log('Результаты показаны вручную');
+                    
+                    const confidenceLevel = document.getElementById('confidenceLevel');
+                    if (confidenceLevel) {
+                        confidenceLevel.style.width = '75%';
+                    }
+                }
+            };
+            
+            // Добавляем кнопку для тестирования
+            const debugButton = document.createElement('button');
+            debugButton.className = 'btn btn-sm btn-secondary';
+            debugButton.textContent = 'Debug: Показать результаты';
+            debugButton.onclick = window.showResults;
+            debugButton.style.position = 'fixed';
+            debugButton.style.bottom = '10px';
+            debugButton.style.right = '10px';
+            debugButton.style.zIndex = '9999';
+            document.body.appendChild(debugButton);
+        });
+    </script>
+
+    <div class="api-status-container">
+        <span id="api-status" class="status-offline">API не подключен</span>
+        <button id="setup-api-btn">Настроить API</button>
+    </div>
+
+    <div id="api-setup-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>Настройка подключения к API</h3>
+            <p>Введите адрес локального API (например, http://192.168.1.141:8000)</p>
+            <input type="text" id="api-url" placeholder="http://192.168.1.141:8000">
+            <p class="note">Примечание: Убедитесь, что API запущен на вашем локальном компьютере и настроен для поддержки CORS.</p>
+            <button id="save-api-url">Сохранить</button>
+        </div>
+    </div>
+</body>
+</html> 
